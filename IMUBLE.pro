@@ -1,4 +1,4 @@
-update=2016/04/26 23:18:17
+update=2016/04/27 0:29:03
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,9 +23,11 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=Cypress_BLE
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -56,5 +58,5 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-[general]
-version=1
+LibName30=Cypress_BLE/Cypress_BLE
+LibName31=components
