@@ -1,2 +1,9 @@
 *-cache.lib
 *.bck
+Firmware/IMUBLE.cydsn/Generated_Source/
+Firmware/IMUBLE.cydsn/CortexM0/
+Firmware/IMUBLE.cydsn/codegentemp/
+Firmware/IMUBLE.cydsn/Export/
+*.cyprj.*
+Firmware/*.cywrk.*
+Firmware/IMUBLE.cydsn/IMUBLE_timing.html
