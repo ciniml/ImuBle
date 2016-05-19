@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <PSoCCreatorDirectory>C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\</PSoCCreatorDirectory>
+    <PSoCGccVersion>4.9.3</PSoCGccVersion>
+    <PSoCGccRoot>$(PSoCCreatorDirectory)import\gnu\arm\$(PSoCGccVersion)</PSoCGccRoot>
+    <PSoCGccInclude>$(PSoCGccRoot)\arm-none-eabi\include;$(PSoCGccRoot)\arm-none-eabi\include\c++\$(PSoCGccVersion)</PSoCGccInclude>
+    <PSoCCreatorGeneratedDirectory>$(ProjectDir)..\$(ProjectName).cydsn\Generated_Source\PSoC4</PSoCCreatorGeneratedDirectory>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ExecutablePath />
+    <IncludePath>$(PSoCGccInclude);$(PSoCCreatorGeneratedDirectory)</IncludePath>
+    <ReferencePath />
+    <LibraryPath />
+    <LibraryWPath />
+    <SourcePath />
+    <ExcludePath />
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="PSoCCreatorDirectory">
+      <Value>$(PSoCCreatorDirectory)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PSoCGccVersion">
+      <Value>$(PSoCGccVersion)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PSoCGccRoot">
+      <Value>$(PSoCGccRoot)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PSoCGccInclude">
+      <Value>$(PSoCGccInclude)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PSoCCreatorGeneratedDirectory">
+      <Value>$(PSoCCreatorGeneratedDirectory)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
