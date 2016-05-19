@@ -1,13 +1,13 @@
-Loading plugins phase: Elapsed time ==> 0s.389ms
+Loading plugins phase: Elapsed time ==> 0s.355ms
 Initializing data phase: Elapsed time ==> 0s.000ms
 <CYPRESSTAG name="CyDsfit arguments...">
 cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p D:\repos\IMUBLE\Firmware\IMUBLE.cydsn\IMUBLE.cyprj -d CY8C4247LQI-BL483 -s D:\repos\IMUBLE\Firmware\IMUBLE.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 3s.431ms
+Elaboration phase: Elapsed time ==> 3s.327ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
-HDL generation phase: Elapsed time ==> 0s.158ms
+HDL generation phase: Elapsed time ==> 0s.151ms
 <CYPRESSTAG name="Synthesis results...">
 
      | | | | | | |
@@ -41,7 +41,7 @@ Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\repos\IMUBL
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Thu May 19 04:12:41 2016
+Fri May 20 03:29:09 2016
 
 
 ======================================================================
@@ -51,7 +51,7 @@ Options  :    -yv2 -q10 IMUBLE.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Thu May 19 04:12:41 2016
+Fri May 20 03:29:09 2016
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\or_v1_0\or_v1_0.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_constant_v1_0\cy_constant_v1_0.v'
@@ -94,7 +94,7 @@ Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\repos\IMUBL
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Thu May 19 04:12:41 2016
+Fri May 20 03:29:10 2016
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -129,7 +129,7 @@ Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\repos\IMUBL
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Thu May 19 04:12:42 2016
+Fri May 20 03:29:10 2016
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -172,15 +172,15 @@ Detecting unused logic.
 	\SPI_LSM9DS0:Net_899\
 	\ADC_SAR_Seq:Net_3125\
 	\ADC_SAR_Seq:Net_3126\
-	\SPI_2:Net_1195\
-	\SPI_2:Net_1257\
-	\SPI_2:uncfg_rx_irq\
-	\SPI_2:Net_1099\
-	\SPI_2:Net_1258\
-	\SPI_2:Net_547\
-	\SPI_2:Net_891\
-	\SPI_2:Net_1001\
-	\SPI_2:Net_899\
+	\SPI_ADX:Net_1195\
+	\SPI_ADX:Net_1257\
+	\SPI_ADX:uncfg_rx_irq\
+	\SPI_ADX:Net_1099\
+	\SPI_ADX:Net_1258\
+	\SPI_ADX:Net_547\
+	\SPI_ADX:Net_891\
+	\SPI_ADX:Net_1001\
+	\SPI_ADX:Net_899\
 	Net_988
 	\DebouncerClockDivider:MODULE_1:b_31\
 	\DebouncerClockDivider:MODULE_1:b_30\
@@ -350,15 +350,15 @@ Aliasing \ADC_SAR_Seq:Net_3235\ to \SPI_LSM9DS0:Net_459\
 Aliasing tmpOE__Pin_LED_net_1 to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
 Aliasing tmpOE__Pin_LED_net_0 to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
 Aliasing tmpOE__Pin_LSM_INT1_net_0 to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
-Aliasing \SPI_2:Net_459\ to \SPI_LSM9DS0:Net_459\
-Aliasing \SPI_2:Net_452\ to \SPI_LSM9DS0:Net_459\
-Aliasing \SPI_2:Net_1194\ to \SPI_LSM9DS0:Net_459\
-Aliasing \SPI_2:Net_1196\ to \SPI_LSM9DS0:Net_459\
-Aliasing \SPI_2:tmpOE__sclk_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
-Aliasing \SPI_2:tmpOE__miso_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
-Aliasing \SPI_2:tmpOE__mosi_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
-Aliasing \SPI_2:tmpOE__ss0_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
-Aliasing \SPI_2:Net_747\ to \SPI_LSM9DS0:Net_459\
+Aliasing \SPI_ADX:Net_459\ to \SPI_LSM9DS0:Net_459\
+Aliasing \SPI_ADX:Net_452\ to \SPI_LSM9DS0:Net_459\
+Aliasing \SPI_ADX:Net_1194\ to \SPI_LSM9DS0:Net_459\
+Aliasing \SPI_ADX:Net_1196\ to \SPI_LSM9DS0:Net_459\
+Aliasing \SPI_ADX:tmpOE__sclk_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
+Aliasing \SPI_ADX:tmpOE__miso_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
+Aliasing \SPI_ADX:tmpOE__mosi_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
+Aliasing \SPI_ADX:tmpOE__ss0_m_net_0\ to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
+Aliasing \SPI_ADX:Net_747\ to \SPI_LSM9DS0:Net_459\
 Aliasing tmpOE__Pin_LSM_INT2_net_0 to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
 Aliasing tmpOE__Pin_LSM_INTG_net_0 to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
 Aliasing tmpOE__Pin_LSM_DRDY_net_0 to \SPI_LSM9DS0:tmpOE__ss1_m_net_0\
@@ -412,88 +412,88 @@ Removing Lhs of wire \SPI_LSM9DS0:tmpOE__sclk_m_net_0\[35] = one[32]
 Removing Lhs of wire \SPI_LSM9DS0:tmpOE__miso_m_net_0\[42] = one[32]
 Removing Lhs of wire \SPI_LSM9DS0:tmpOE__mosi_m_net_0\[47] = one[32]
 Removing Lhs of wire \SPI_LSM9DS0:tmpOE__ss0_m_net_0\[54] = one[32]
-Removing Lhs of wire \SPI_LSM9DS0:Net_1175\[62] = zero[31]
-Removing Lhs of wire \SPI_LSM9DS0:Net_747\[63] = zero[31]
-Removing Lhs of wire tmpOE__Pin_VBAT_net_0[84] = one[32]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3107\[161] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3106\[162] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3105\[163] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3104\[164] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3103\[165] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_17\[207] = \ADC_SAR_Seq:Net_1845\[92]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3207_1\[229] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3207_0\[230] = zero[31]
-Removing Lhs of wire \ADC_SAR_Seq:Net_3235\[231] = zero[31]
-Removing Lhs of wire tmpOE__Pin_LED_net_1[299] = one[32]
-Removing Lhs of wire tmpOE__Pin_LED_net_0[300] = one[32]
-Removing Lhs of wire tmpOE__Pin_LSM_INT1_net_0[308] = one[32]
-Removing Lhs of wire \SPI_2:Net_459\[315] = zero[31]
-Removing Lhs of wire \SPI_2:Net_652\[316] = zero[31]
-Removing Lhs of wire \SPI_2:Net_452\[317] = zero[31]
-Removing Lhs of wire \SPI_2:Net_1194\[318] = zero[31]
-Removing Lhs of wire \SPI_2:Net_1196\[320] = zero[31]
-Removing Lhs of wire \SPI_2:Net_654\[321] = zero[31]
-Removing Lhs of wire \SPI_2:Net_1170\[324] = \SPI_2:Net_847\[314]
-Removing Lhs of wire \SPI_2:Net_990\[325] = zero[31]
-Removing Lhs of wire \SPI_2:Net_909\[326] = zero[31]
-Removing Rhs of wire \SPI_2:Net_663\[327] = \SPI_2:Net_467\[328]
-Removing Lhs of wire \SPI_2:tmpOE__sclk_m_net_0\[332] = one[32]
-Removing Lhs of wire \SPI_2:tmpOE__miso_m_net_0\[339] = one[32]
-Removing Lhs of wire \SPI_2:tmpOE__mosi_m_net_0\[344] = one[32]
-Removing Lhs of wire \SPI_2:tmpOE__ss0_m_net_0\[351] = one[32]
-Removing Lhs of wire \SPI_2:Net_1175\[359] = zero[31]
-Removing Lhs of wire \SPI_2:Net_747\[360] = zero[31]
-Removing Lhs of wire tmpOE__Pin_LSM_INT2_net_0[382] = one[32]
-Removing Lhs of wire tmpOE__Pin_LSM_INTG_net_0[388] = one[32]
-Removing Lhs of wire tmpOE__Pin_LSM_DRDY_net_0[394] = one[32]
-Removing Lhs of wire tmpOE__Pin_LSM_DEN_net_0[400] = one[32]
-Removing Lhs of wire tmpOE__Pin_ADX_INT1_net_0[406] = one[32]
-Removing Lhs of wire tmpOE__Pin_ADX_INT2_net_0[412] = one[32]
-Removing Lhs of wire tmpOE__Pin_Switch_net_0[434] = one[32]
-Removing Lhs of wire Net_1039[442] = zero[31]
-Removing Lhs of wire Net_1037[443] = one[32]
-Removing Lhs of wire \DebouncerClockDivider:add_vi_vv_MODGEN_1_2\[447] = \DebouncerClockDivider:MODULE_1:g2:a0:s_2\[607]
-Removing Lhs of wire \DebouncerClockDivider:add_vi_vv_MODGEN_1_1\[448] = \DebouncerClockDivider:MODULE_1:g2:a0:s_1\[608]
-Removing Lhs of wire \DebouncerClockDivider:add_vi_vv_MODGEN_1_0\[449] = \DebouncerClockDivider:MODULE_1:g2:a0:s_0\[609]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_23\[490] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_22\[491] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_21\[492] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_20\[493] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_19\[494] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_18\[495] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_17\[496] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_16\[497] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_15\[498] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_14\[499] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_13\[500] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_12\[501] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_11\[502] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_10\[503] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_9\[504] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_8\[505] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_7\[506] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_6\[507] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_5\[508] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_4\[509] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_3\[510] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_2\[511] = \DebouncerClockDivider:MODIN1_2\[512]
-Removing Lhs of wire \DebouncerClockDivider:MODIN1_2\[512] = \DebouncerClockDivider:count_2\[444]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_1\[513] = \DebouncerClockDivider:MODIN1_1\[514]
-Removing Lhs of wire \DebouncerClockDivider:MODIN1_1\[514] = \DebouncerClockDivider:count_1\[445]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_0\[515] = \DebouncerClockDivider:MODIN1_0\[516]
-Removing Lhs of wire \DebouncerClockDivider:MODIN1_0\[516] = \DebouncerClockDivider:count_0\[446]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_0\[647] = one[32]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_0\[648] = one[32]
-Removing Lhs of wire \Timer_Sampling:Net_81\[652] = Net_952[439]
-Removing Lhs of wire \Timer_Sampling:Net_75\[653] = zero[31]
-Removing Lhs of wire \Timer_Sampling:Net_69\[654] = one[32]
-Removing Lhs of wire \Timer_Sampling:Net_66\[655] = zero[31]
-Removing Lhs of wire \Timer_Sampling:Net_82\[656] = zero[31]
-Removing Lhs of wire \Timer_Sampling:Net_72\[657] = zero[31]
-Removing Lhs of wire \Debouncer_Switch:DEBOUNCER[0]:d_sync_0\\D\[664] = Net_931[427]
-Removing Lhs of wire \Debouncer_Switch:DEBOUNCER[0]:d_sync_1\\D\[665] = \Debouncer_Switch:DEBOUNCER[0]:d_sync_0\[426]
-Removing Lhs of wire Net_991D[666] = zero[31]
-Removing Lhs of wire Net_990D[668] = zero[31]
+Removing Lhs of wire \SPI_LSM9DS0:Net_1175\[60] = zero[31]
+Removing Lhs of wire \SPI_LSM9DS0:Net_747\[61] = zero[31]
+Removing Lhs of wire tmpOE__Pin_VBAT_net_0[83] = one[32]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3107\[160] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3106\[161] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3105\[162] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3104\[163] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3103\[164] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_17\[206] = \ADC_SAR_Seq:Net_1845\[91]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3207_1\[228] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3207_0\[229] = zero[31]
+Removing Lhs of wire \ADC_SAR_Seq:Net_3235\[230] = zero[31]
+Removing Lhs of wire tmpOE__Pin_LED_net_1[298] = one[32]
+Removing Lhs of wire tmpOE__Pin_LED_net_0[299] = one[32]
+Removing Lhs of wire tmpOE__Pin_LSM_INT1_net_0[307] = one[32]
+Removing Lhs of wire \SPI_ADX:Net_459\[314] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_652\[315] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_452\[316] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_1194\[317] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_1196\[319] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_654\[320] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_1170\[323] = \SPI_ADX:Net_847\[313]
+Removing Lhs of wire \SPI_ADX:Net_990\[324] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_909\[325] = zero[31]
+Removing Rhs of wire \SPI_ADX:Net_663\[326] = \SPI_ADX:Net_467\[327]
+Removing Lhs of wire \SPI_ADX:tmpOE__sclk_m_net_0\[331] = one[32]
+Removing Lhs of wire \SPI_ADX:tmpOE__miso_m_net_0\[338] = one[32]
+Removing Lhs of wire \SPI_ADX:tmpOE__mosi_m_net_0\[343] = one[32]
+Removing Lhs of wire \SPI_ADX:tmpOE__ss0_m_net_0\[350] = one[32]
+Removing Lhs of wire \SPI_ADX:Net_1175\[356] = zero[31]
+Removing Lhs of wire \SPI_ADX:Net_747\[357] = zero[31]
+Removing Lhs of wire tmpOE__Pin_LSM_INT2_net_0[380] = one[32]
+Removing Lhs of wire tmpOE__Pin_LSM_INTG_net_0[386] = one[32]
+Removing Lhs of wire tmpOE__Pin_LSM_DRDY_net_0[392] = one[32]
+Removing Lhs of wire tmpOE__Pin_LSM_DEN_net_0[398] = one[32]
+Removing Lhs of wire tmpOE__Pin_ADX_INT1_net_0[404] = one[32]
+Removing Lhs of wire tmpOE__Pin_ADX_INT2_net_0[410] = one[32]
+Removing Lhs of wire tmpOE__Pin_Switch_net_0[432] = one[32]
+Removing Lhs of wire Net_1039[440] = zero[31]
+Removing Lhs of wire Net_1037[441] = one[32]
+Removing Lhs of wire \DebouncerClockDivider:add_vi_vv_MODGEN_1_2\[445] = \DebouncerClockDivider:MODULE_1:g2:a0:s_2\[605]
+Removing Lhs of wire \DebouncerClockDivider:add_vi_vv_MODGEN_1_1\[446] = \DebouncerClockDivider:MODULE_1:g2:a0:s_1\[606]
+Removing Lhs of wire \DebouncerClockDivider:add_vi_vv_MODGEN_1_0\[447] = \DebouncerClockDivider:MODULE_1:g2:a0:s_0\[607]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_23\[488] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_22\[489] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_21\[490] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_20\[491] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_19\[492] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_18\[493] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_17\[494] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_16\[495] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_15\[496] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_14\[497] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_13\[498] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_12\[499] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_11\[500] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_10\[501] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_9\[502] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_8\[503] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_7\[504] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_6\[505] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_5\[506] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_4\[507] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_3\[508] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_2\[509] = \DebouncerClockDivider:MODIN1_2\[510]
+Removing Lhs of wire \DebouncerClockDivider:MODIN1_2\[510] = \DebouncerClockDivider:count_2\[442]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_1\[511] = \DebouncerClockDivider:MODIN1_1\[512]
+Removing Lhs of wire \DebouncerClockDivider:MODIN1_1\[512] = \DebouncerClockDivider:count_1\[443]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:a_0\[513] = \DebouncerClockDivider:MODIN1_0\[514]
+Removing Lhs of wire \DebouncerClockDivider:MODIN1_0\[514] = \DebouncerClockDivider:count_0\[444]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_0\[645] = one[32]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_0\[646] = one[32]
+Removing Lhs of wire \Timer_Sampling:Net_81\[650] = Net_952[437]
+Removing Lhs of wire \Timer_Sampling:Net_75\[651] = zero[31]
+Removing Lhs of wire \Timer_Sampling:Net_69\[652] = one[32]
+Removing Lhs of wire \Timer_Sampling:Net_66\[653] = zero[31]
+Removing Lhs of wire \Timer_Sampling:Net_82\[654] = zero[31]
+Removing Lhs of wire \Timer_Sampling:Net_72\[655] = zero[31]
+Removing Lhs of wire \Debouncer_Switch:DEBOUNCER[0]:d_sync_0\\D\[662] = Net_931[425]
+Removing Lhs of wire \Debouncer_Switch:DEBOUNCER[0]:d_sync_1\\D\[663] = \Debouncer_Switch:DEBOUNCER[0]:d_sync_0\[424]
+Removing Lhs of wire Net_991D[664] = zero[31]
+Removing Lhs of wire Net_990D[666] = zero[31]
 
 ------------------------------------------------------
 Aliased 0 equations, 97 wires.
@@ -623,10 +623,10 @@ Aliasing \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_24\ to zero
 Aliasing \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_16\ to zero
 Aliasing \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_8\ to zero
 Aliasing \DebouncerClockDivider:not_last_reset\\D\ to one
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_24\[618] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_16\[628] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_8\[638] = zero[31]
-Removing Lhs of wire \DebouncerClockDivider:not_last_reset\\D\[669] = one[32]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_24\[616] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_16\[626] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_8\[636] = zero[31]
+Removing Lhs of wire \DebouncerClockDivider:not_last_reset\\D\[667] = one[32]
 
 ------------------------------------------------------
 Aliased 0 equations, 4 wires.
@@ -659,14 +659,14 @@ CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\wa
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\bin/warp.exe
 Warp Arguments : -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\repos\IMUBLE\Firmware\IMUBLE.cydsn\IMUBLE.cyprj -dcpsoc3 IMUBLE.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 0s.801ms
+Warp synthesis phase: Elapsed time ==> 0s.608ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.3.0.410, Family: PSoC3, Started at: Thursday, 19 May 2016 04:12:42
+cyp3fit: V3.3.0.410, Family: PSoC3, Started at: Friday, 20 May 2016 03:29:10
 Options: -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\repos\IMUBLE\Firmware\IMUBLE.cydsn\IMUBLE.cyprj -d CY8C4247LQI-BL483 IMUBLE.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
-Design parsing phase: Elapsed time ==> 0s.104ms
+Design parsing phase: Elapsed time ==> 0s.095ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Tech mapping">
 <CYPRESSTAG name="Initial Mapping" icon="FILE_RPT_TECHM">
@@ -681,7 +681,7 @@ Removing unused cells resulting from optimization
 Done removing unused cells.
 <CYPRESSTAG name="Global Clock Selection" icon="FILE_RPT_TECHM">
     Fixed Function Clock 1: Automatic-assigning  clock 'SPI_LSM9DS0_SCBCLK'. Signal=\SPI_LSM9DS0:Net_847_ff1\
-    Fixed Function Clock 2: Automatic-assigning  clock 'SPI_2_SCBCLK'. Signal=\SPI_2:Net_847_ff2\
+    Fixed Function Clock 2: Automatic-assigning  clock 'SPI_ADX_SCBCLK'. Signal=\SPI_ADX:Net_847_ff2\
     Fixed Function Clock 6: Automatic-assigning  clock 'ADC_SAR_Seq_intClock'. Signal=\ADC_SAR_Seq:Net_1845_ff6\
     Fixed Function Clock 7: Automatic-assigning  clock 'Clock_Debouncer'. Signal=Net_952_ff7
     Digital Clock 0: Automatic-assigning  clock 'Clock_Debouncer'. Fanout=5, Signal=Net_952_digital
@@ -1069,7 +1069,7 @@ Design Equations
         {
         }
 
-    Pin : Name = \SPI_2:sclk_m(0)\
+    Pin : Name = \SPI_ADX:sclk_m(0)\
         Attributes:
             In Group/Port: True
             In Sync Option: NOSYNC
@@ -1102,14 +1102,14 @@ Design Equations
             Initial Value: 1
             IO Voltage: 0
         PORT MAP (
-            pa_out => \SPI_2:sclk_m(0)\__PA ,
-            input => \SPI_2:Net_1059\ ,
-            pad => \SPI_2:sclk_m(0)_PAD\ );
+            pa_out => \SPI_ADX:sclk_m(0)\__PA ,
+            input => \SPI_ADX:Net_1059\ ,
+            pad => \SPI_ADX:sclk_m(0)_PAD\ );
         Properties:
         {
         }
 
-    Pin : Name = \SPI_2:miso_m(0)\
+    Pin : Name = \SPI_ADX:miso_m(0)\
         Attributes:
             In Group/Port: True
             In Sync Option: NOSYNC
@@ -1142,14 +1142,14 @@ Design Equations
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
-            pa_out => \SPI_2:miso_m(0)\__PA ,
-            fb => \SPI_2:Net_663\ ,
-            pad => \SPI_2:miso_m(0)_PAD\ );
+            pa_out => \SPI_ADX:miso_m(0)\__PA ,
+            fb => \SPI_ADX:Net_663\ ,
+            pad => \SPI_ADX:miso_m(0)_PAD\ );
         Properties:
         {
         }
 
-    Pin : Name = \SPI_2:mosi_m(0)\
+    Pin : Name = \SPI_ADX:mosi_m(0)\
         Attributes:
             In Group/Port: True
             In Sync Option: NOSYNC
@@ -1182,14 +1182,14 @@ Design Equations
             Initial Value: 1
             IO Voltage: 0
         PORT MAP (
-            pa_out => \SPI_2:mosi_m(0)\__PA ,
-            input => \SPI_2:Net_1061\ ,
-            pad => \SPI_2:mosi_m(0)_PAD\ );
+            pa_out => \SPI_ADX:mosi_m(0)\__PA ,
+            input => \SPI_ADX:Net_1061\ ,
+            pad => \SPI_ADX:mosi_m(0)_PAD\ );
         Properties:
         {
         }
 
-    Pin : Name = \SPI_2:ss0_m(0)\
+    Pin : Name = \SPI_ADX:ss0_m(0)\
         Attributes:
             In Group/Port: True
             In Sync Option: NOSYNC
@@ -1222,9 +1222,9 @@ Design Equations
             Initial Value: 1
             IO Voltage: 0
         PORT MAP (
-            pa_out => \SPI_2:ss0_m(0)\__PA ,
-            input => \SPI_2:ss_0\ ,
-            pad => \SPI_2:ss0_m(0)_PAD\ );
+            pa_out => \SPI_ADX:ss0_m(0)\__PA ,
+            input => \SPI_ADX:ss_0\ ,
+            pad => \SPI_ADX:ss0_m(0)_PAD\ );
         Properties:
         {
         }
@@ -1656,25 +1656,9 @@ Design Equations
             int_type = "10"
         }
 
-    interrupt: Name =\SPI_LSM9DS0:SCB_IRQ\
-        PORT MAP (
-            interrupt => Net_503 );
-        Properties:
-        {
-            int_type = "10"
-        }
-
     interrupt: Name =\ADC_SAR_Seq:IRQ\
         PORT MAP (
             interrupt => \ADC_SAR_Seq:Net_3112\ );
-        Properties:
-        {
-            int_type = "10"
-        }
-
-    interrupt: Name =\SPI_2:SCB_IRQ\
-        PORT MAP (
-            interrupt => Net_507 );
         Properties:
         {
             int_type = "10"
@@ -1709,7 +1693,7 @@ Design Equations
             interrupt => Net_686 );
         Properties:
         {
-            int_type = "10"
+            int_type = "01"
         }
 
     interrupt: Name =ISR_ADX_INT2
@@ -1754,7 +1738,7 @@ Technology mapping summary
 Resource Type                 : Used : Free :  Max :  % Used
 ============================================================
 Digital Clocks                :    1 :    3 :    4 : 25.00 %
-Interrupts                    :   12 :   20 :   32 : 37.50 %
+Interrupts                    :   10 :   22 :   32 : 31.25 %
 IO                            :   24 :   14 :   38 : 63.16 %
 Segment LCD                   :    0 :    1 :    1 :  0.00 %
 CapSense                      :    0 :    1 :    1 :  0.00 %
@@ -1770,20 +1754,20 @@ DAC                           :      :      :      :
   7-bit IDAC                  :    0 :    1 :    1 :  0.00 %
   8-bit IDAC                  :    0 :    1 :    1 :  0.00 %
 </CYPRESSTAG>
-Technology Mapping: Elapsed time ==> 0s.261ms
-Tech mapping phase: Elapsed time ==> 0s.417ms
+Technology Mapping: Elapsed time ==> 0s.266ms
+Tech mapping phase: Elapsed time ==> 0s.406ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 <CYPRESSTAG name="Analog Placement">
-Elapsed time ==> 0.2862677s
+Elapsed time ==> 0.2507926s
 </CYPRESSTAG>
-Analog Placement phase: Elapsed time ==> 0s.567ms
+Analog Placement phase: Elapsed time ==> 0s.517ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
 <CYPRESSTAG name="Analog Routing">
-Route success=True, Iterations=1 Elapsed=0.0295602 secs
+Route success=True, Iterations=1 Elapsed=0.0328091 secs
 </CYPRESSTAG>
-Analog Routing phase: Elapsed time ==> 0s.037ms
+Analog Routing phase: Elapsed time ==> 0s.039ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Code Generation">
 ============ Analog Final Answer Routes ============
@@ -1812,7 +1796,7 @@ Map of item to net {
 }
 Mux Info {
 }
-Analog Code Generation phase: Elapsed time ==> 0s.065ms
+Analog Code Generation phase: Elapsed time ==> 0s.064ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="Detailed placement messages">
@@ -1840,20 +1824,20 @@ PLD Packing Summary
 <CYPRESSTAG name="Packed PLD Contents">
 Packed PLD Contents not displayed at this verbose level.</CYPRESSTAG>
 </CYPRESSTAG>
-PLD Packing: Elapsed time ==> 0s.029ms
+PLD Packing: Elapsed time ==> 0s.031ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Partitioning">
 <CYPRESSTAG name="Initial Partitioning Summary">
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.098ms
+Partitioning: Elapsed time ==> 0s.099ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
-Annealing: Elapsed time ==> 0s.025ms
+Annealing: Elapsed time ==> 0s.032ms
 <CYPRESSTAG name="Simulated Annealing Results">
 The seed used for moves was 114161200.
-Inital cost was 148, final cost is 148 (0.00% improvement).</CYPRESSTAG>
+Inital cost was 132, final cost is 132 (0.00% improvement).</CYPRESSTAG>
 </CYPRESSTAG>
 <CYPRESSTAG name="Final Placement Summary">
 
@@ -2034,7 +2018,7 @@ Intr container @ [IntrContainer=(0)]:
             interrupt => Net_686 );
         Properties:
         {
-            int_type = "10"
+            int_type = "01"
         }
   Intr@ [IntrContainer=(0)][IntrId=(2)] 
     interrupt: Name =ISR_ADX_INT2
@@ -2083,22 +2067,6 @@ Intr container @ [IntrContainer=(0)]:
         Properties:
         {
             int_type = "01"
-        }
-  Intr@ [IntrContainer=(0)][IntrId=(9)] 
-    interrupt: Name =\SPI_2:SCB_IRQ\
-        PORT MAP (
-            interrupt => Net_507 );
-        Properties:
-        {
-            int_type = "10"
-        }
-  Intr@ [IntrContainer=(0)][IntrId=(10)] 
-    interrupt: Name =\SPI_LSM9DS0:SCB_IRQ\
-        PORT MAP (
-            interrupt => Net_503 );
-        Properties:
-        {
-            int_type = "10"
         }
   Intr@ [IntrContainer=(0)][IntrId=(12)] 
     interrupt: Name =\BLE:bless_isr\
@@ -2537,7 +2505,7 @@ Pin : Name = Pin_ADX_INT2(0)
     }
 
 [IoId=4]: 
-Pin : Name = \SPI_2:mosi_m(0)\
+Pin : Name = \SPI_ADX:mosi_m(0)\
     Attributes:
         In Group/Port: True
         In Sync Option: NOSYNC
@@ -2570,15 +2538,15 @@ Pin : Name = \SPI_2:mosi_m(0)\
         Initial Value: 1
         IO Voltage: 0
     PORT MAP (
-        pa_out => \SPI_2:mosi_m(0)\__PA ,
-        input => \SPI_2:Net_1061\ ,
-        pad => \SPI_2:mosi_m(0)_PAD\ );
+        pa_out => \SPI_ADX:mosi_m(0)\__PA ,
+        input => \SPI_ADX:Net_1061\ ,
+        pad => \SPI_ADX:mosi_m(0)_PAD\ );
     Properties:
     {
     }
 
 [IoId=5]: 
-Pin : Name = \SPI_2:miso_m(0)\
+Pin : Name = \SPI_ADX:miso_m(0)\
     Attributes:
         In Group/Port: True
         In Sync Option: NOSYNC
@@ -2611,15 +2579,15 @@ Pin : Name = \SPI_2:miso_m(0)\
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
-        pa_out => \SPI_2:miso_m(0)\__PA ,
-        fb => \SPI_2:Net_663\ ,
-        pad => \SPI_2:miso_m(0)_PAD\ );
+        pa_out => \SPI_ADX:miso_m(0)\__PA ,
+        fb => \SPI_ADX:Net_663\ ,
+        pad => \SPI_ADX:miso_m(0)_PAD\ );
     Properties:
     {
     }
 
 [IoId=6]: 
-Pin : Name = \SPI_2:ss0_m(0)\
+Pin : Name = \SPI_ADX:ss0_m(0)\
     Attributes:
         In Group/Port: True
         In Sync Option: NOSYNC
@@ -2652,15 +2620,15 @@ Pin : Name = \SPI_2:ss0_m(0)\
         Initial Value: 1
         IO Voltage: 0
     PORT MAP (
-        pa_out => \SPI_2:ss0_m(0)\__PA ,
-        input => \SPI_2:ss_0\ ,
-        pad => \SPI_2:ss0_m(0)_PAD\ );
+        pa_out => \SPI_ADX:ss0_m(0)\__PA ,
+        input => \SPI_ADX:ss_0\ ,
+        pad => \SPI_ADX:ss0_m(0)_PAD\ );
     Properties:
     {
     }
 
 [IoId=7]: 
-Pin : Name = \SPI_2:sclk_m(0)\
+Pin : Name = \SPI_ADX:sclk_m(0)\
     Attributes:
         In Group/Port: True
         In Sync Option: NOSYNC
@@ -2693,9 +2661,9 @@ Pin : Name = \SPI_2:sclk_m(0)\
         Initial Value: 1
         IO Voltage: 0
     PORT MAP (
-        pa_out => \SPI_2:sclk_m(0)\__PA ,
-        input => \SPI_2:Net_1059\ ,
-        pad => \SPI_2:sclk_m(0)_PAD\ );
+        pa_out => \SPI_ADX:sclk_m(0)\__PA ,
+        input => \SPI_ADX:Net_1059\ ,
+        pad => \SPI_ADX:sclk_m(0)_PAD\ );
     Properties:
     {
     }
@@ -2962,7 +2930,7 @@ Clock group 0:
             wco => ClockBlock_WCO ,
             dsi_in_0 => ClockBlock_Routed1 ,
             ff_div_1 => \SPI_LSM9DS0:Net_847_ff1\ ,
-            ff_div_2 => \SPI_2:Net_847_ff2\ ,
+            ff_div_2 => \SPI_ADX:Net_847_ff2\ ,
             ff_div_6 => \ADC_SAR_Seq:Net_1845_ff6\ ,
             ff_div_7 => Net_952_ff7 ,
             udb_div_0 => dclk_to_genclk );
@@ -2976,20 +2944,20 @@ FSS group 0: empty
 LP Comparator group 0: empty
 Serial Communication (SCB) group 0: 
     SCB Block @ F(SCB,0): 
-    m0s8scbcell: Name =\SPI_2:SCB\
+    m0s8scbcell: Name =\SPI_ADX:SCB\
         PORT MAP (
-            clock => \SPI_2:Net_847_ff2\ ,
+            clock => \SPI_ADX:Net_847_ff2\ ,
             interrupt => Net_507 ,
-            tx => \SPI_2:Net_1062\ ,
-            rts => \SPI_2:Net_1053\ ,
-            mosi_m => \SPI_2:Net_1061\ ,
-            miso_m => \SPI_2:Net_663\ ,
-            select_m_3 => \SPI_2:ss_3\ ,
-            select_m_2 => \SPI_2:ss_2\ ,
-            select_m_1 => \SPI_2:ss_1\ ,
-            select_m_0 => \SPI_2:ss_0\ ,
-            sclk_m => \SPI_2:Net_1059\ ,
-            miso_s => \SPI_2:Net_1055\ ,
+            tx => \SPI_ADX:Net_1062\ ,
+            rts => \SPI_ADX:Net_1053\ ,
+            mosi_m => \SPI_ADX:Net_1061\ ,
+            miso_m => \SPI_ADX:Net_663\ ,
+            select_m_3 => \SPI_ADX:ss_3\ ,
+            select_m_2 => \SPI_ADX:ss_2\ ,
+            select_m_1 => \SPI_ADX:ss_1\ ,
+            select_m_0 => \SPI_ADX:ss_0\ ,
+            sclk_m => \SPI_ADX:Net_1059\ ,
+            miso_s => \SPI_ADX:Net_1055\ ,
             tx_req => Net_510 ,
             rx_req => Net_509 );
         Properties:
@@ -3120,10 +3088,10 @@ Port | Pin | Fixed |      Type |       Drive Mode |                    Name | Co
      |   1 |     * |      NONE |         CMOS_OUT |  \SPI_LSM9DS0:ss1_m(0)\ | In(\SPI_LSM9DS0:ss_1\)
      |   2 |     * |      NONE |     HI_Z_DIGITAL |         Pin_ADX_INT1(0) | FB(Net_686)
      |   3 |     * |      NONE |     HI_Z_DIGITAL |         Pin_ADX_INT2(0) | FB(Net_692)
-     |   4 |     * |      NONE |         CMOS_OUT |       \SPI_2:mosi_m(0)\ | In(\SPI_2:Net_1061\)
-     |   5 |     * |      NONE |     HI_Z_DIGITAL |       \SPI_2:miso_m(0)\ | FB(\SPI_2:Net_663\)
-     |   6 |     * |      NONE |         CMOS_OUT |        \SPI_2:ss0_m(0)\ | In(\SPI_2:ss_0\)
-     |   7 |     * |      NONE |         CMOS_OUT |       \SPI_2:sclk_m(0)\ | In(\SPI_2:Net_1059\)
+     |   4 |     * |      NONE |         CMOS_OUT |     \SPI_ADX:mosi_m(0)\ | In(\SPI_ADX:Net_1061\)
+     |   5 |     * |      NONE |     HI_Z_DIGITAL |     \SPI_ADX:miso_m(0)\ | FB(\SPI_ADX:Net_663\)
+     |   6 |     * |      NONE |         CMOS_OUT |      \SPI_ADX:ss0_m(0)\ | In(\SPI_ADX:ss_0\)
+     |   7 |     * |      NONE |         CMOS_OUT |     \SPI_ADX:sclk_m(0)\ | In(\SPI_ADX:Net_1059\)
 -----+-----+-------+-----------+------------------+-------------------------+---------------------------
    2 |   0 |     * |      NONE |         CMOS_OUT |              Pin_LED(0) | 
      |   1 |     * |      NONE |         CMOS_OUT |              Pin_LED(1) | 
@@ -3136,32 +3104,32 @@ Port | Pin | Fixed |      Type |       Drive Mode |                    Name | Co
 </CYPRESSTAG>
 </CYPRESSTAG>
 </CYPRESSTAG>
-Digital component placer commit/Report: Elapsed time ==> 0s.019ms
-Digital Placement phase: Elapsed time ==> 0s.765ms
+Digital component placer commit/Report: Elapsed time ==> 0s.023ms
+Digital Placement phase: Elapsed time ==> 0s.751ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Routing">
 Routing successful.
-Digital Routing phase: Elapsed time ==> 0s.697ms
+Digital Routing phase: Elapsed time ==> 0s.654ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 0s.588ms
+Bitstream and API generation phase: Elapsed time ==> 0s.463ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.107ms
+Bitstream verification phase: Elapsed time ==> 0s.091ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
 Timing report is in IMUBLE_timing.html.
 Static timing analysis phase: Elapsed time ==> 0s.297ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Data reporting">
-Data reporting phase: Elapsed time ==> 0s.007ms
+Data reporting phase: Elapsed time ==> 0s.006ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Database update...">
 Design database save phase: Elapsed time ==> 0s.170ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 3s.873ms
+cydsfit: Elapsed time ==> 3s.605ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 3s.925ms
-API generation phase: Elapsed time ==> 2s.856ms
-Dependency generation phase: Elapsed time ==> 0s.047ms
-Cleanup phase: Elapsed time ==> 0s.006ms
+Fitter phase: Elapsed time ==> 3s.656ms
+API generation phase: Elapsed time ==> 2s.478ms
+Dependency generation phase: Elapsed time ==> 0s.040ms
+Cleanup phase: Elapsed time ==> 0s.002ms

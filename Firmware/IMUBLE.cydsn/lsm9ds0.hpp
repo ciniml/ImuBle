@@ -2,15 +2,7 @@
 #define LSM9DS0_HPP__
 
 #include <stdint.h>
-#include "lazy.hpp"
-
-
-struct ImuOutput
-{
-	uint16 x;
-	uint16 y;
-	uint16 z;
-};
+#include "imu.hpp"
 
 template< template<class> class TIOAccessPolicy >
 class LSM9DS0

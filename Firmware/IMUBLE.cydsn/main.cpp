@@ -10,8 +10,11 @@
  * ========================================
 */
 #include "project.hpp"
+#include "imu.hpp"
 #include "lsm9ds0.hpp"
 #include "lsm9ds0_io.hpp"
+#include "adxl375.hpp"
+#include "adxl375_io.hpp"
 #include "interlocked.hpp"
 #include "interrupt.hpp"
 #include <stdint.h>
@@ -47,17 +50,22 @@ static constexpr uint16_t ALIVE_LED_BLINK_INTERVAL = 400;
 
 typedef LSM9DS0<LSM9DS0_IOAccessPolicy> IMU;
 typedef typename IMU::AccessPolicyType IMUAccessPolicy;
+typedef ADXL375<ADXL375_IOAccessPolicy> WRA;	// Wide-Range Accelerometer
+typedef typename WRA::AccessPolicyType WRAAccessPolicy;
 
 static InterruptInterlocked<ImuOutput> lastGyroOutput;
 static InterruptInterlocked<ImuOutput> lastMagnetometerOutput;
 static InterruptInterlocked<ImuOutput> lastAccelerometerOutput;
+static InterruptInterlocked<ImuOutput> lastWRAOutput;
 static bool isNotificationEnabled = false;
+static volatile bool hasNewData = false;
 
 struct SampledOutput
 {
 	ImuOutput gyro;
 	ImuOutput magnetometer;
 	ImuOutput accelerometer[2];
+	ImuOutput wra[2];
 };
 
 static InterruptInterlocked<SampledOutput> sampledOutput;
@@ -78,6 +86,12 @@ void IMUAccessPolicy::onAccelerometerDataReady(const ImuOutput& output)
 	lastAccelerometerOutput = output;
 }
 
+template <>
+void WRAAccessPolicy::onDataReady(const ImuOutput& output)
+{
+	lastWRAOutput = output;
+}
+
 CY_ISR(SwitchInterruptHandler)
 {
 	CySoftwareReset();
@@ -91,9 +105,13 @@ CY_ISR(SamplingInterruptHandler)
 	SampledOutput next = sampledOutput;
 	next.accelerometer[1] = next.accelerometer[0];
 	next.accelerometer[0] = lastAccelerometerOutput;
+	next.wra[1] = next.wra[0];
+	next.wra[0] = lastWRAOutput;
 	next.gyro = lastGyroOutput;
 	next.magnetometer = lastMagnetometerOutput;
 	sampledOutput.assign(next);
+
+	hasNewData = true;
 }
 
 static void BleCallback(uint32 eventCode, void *eventParam)
@@ -187,26 +205,33 @@ int main()
     
     // Initialize SPI controllers
 	IMU::initialize();
-	
+	WRA::initialize();
+    
 	// Start samplling timer
 	ISR_SampleOutput_StartEx(SamplingInterruptHandler);
-	Timer_Sampling_Start();
+	Timer_Sampling_Init();
+	Timer_Sampling_WritePeriod(500);
+	Timer_Sampling_Enable();
 	
     CyGlobalIntEnable; /* Enable global interrupts. */
 
 	// Identify the IMU sensor.
 	volatile auto gyroIdentity = IMU::identifyGyro();
 	volatile auto magnetoIdentity = IMU::identifyMagnetometer();
-
+    volatile auto wraIdentity = WRA::identify();
+    
     // Enable IMU outputs
     IMU::enableGyro();
 	IMU::enableMagnetometer();
-
+    
+    // Enable WRA outputs
+    WRA::enable();
+    
 	// Start BLE
 	CyBle_Start(BleCallback);
 
 	bool canEnterToDeepSleep = false;
-	uint8 valueBuffer[30];
+	uint8 valueBuffer[40];
 
     for(;;)
     {
@@ -215,24 +240,31 @@ int main()
 
 		if (CyBle_GetState() == CYBLE_STATE_CONNECTED)
 		{
-			uint8_t* p = valueBuffer;
-			*(p++) = 0;
-			SampledOutput sampled = sampledOutput;
-			p = putImuOutputToBuffer(p, sampled.gyro);
-			p = putImuOutputToBuffer(p, sampled.magnetometer);
-			p = putImuOutputToBuffer(p, sampled.accelerometer[0]);
-			p = putImuOutputToBuffer(p, sampled.accelerometer[1]);
-			size_t length = p - valueBuffer;
-
-			CYBLE_GATT_DB_ATTR_HANDLE_T handle = cyBle_customs[0].customServiceInfo[0].customServiceCharHandle;
-			CYBLE_GATTS_HANDLE_VALUE_NTF_T pair = {
-				{ valueBuffer, length, length },
-				handle,
-			};
-			CyBle_GattsWriteAttributeValue(&pair, 0, &cyBle_connHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
-			if (isNotificationEnabled)
+			if (hasNewData)
 			{
-				CyBle_GattsNotification(cyBle_connHandle, &pair);
+				hasNewData = false;
+
+				uint8_t* p = valueBuffer;
+				*(p++) = 0;
+				SampledOutput sampled = sampledOutput;
+				p = putImuOutputToBuffer(p, sampled.gyro);
+				p = putImuOutputToBuffer(p, sampled.magnetometer);
+				p = putImuOutputToBuffer(p, sampled.accelerometer[0]);
+				p = putImuOutputToBuffer(p, sampled.accelerometer[1]);
+				p = putImuOutputToBuffer(p, sampled.wra[0]);
+				p = putImuOutputToBuffer(p, sampled.wra[1]);
+				size_t length = p - valueBuffer;
+
+				CYBLE_GATT_DB_ATTR_HANDLE_T handle = cyBle_customs[0].customServiceInfo[0].customServiceCharHandle;
+				CYBLE_GATTS_HANDLE_VALUE_NTF_T pair = {
+					{ valueBuffer, length, length },
+					handle,
+				};
+				CyBle_GattsWriteAttributeValue(&pair, 0, &cyBle_connHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+				if (isNotificationEnabled)
+				{
+					CyBle_GattsNotification(cyBle_connHandle, &pair);
+				}
 			}
 			canEnterToDeepSleep = true;
 		}

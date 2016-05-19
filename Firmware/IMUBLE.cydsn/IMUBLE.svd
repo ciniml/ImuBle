@@ -64,7 +64,7 @@
       </registers>
     </peripheral>
     <peripheral>
-      <name>SPI_2</name>
+      <name>SPI_ADX</name>
       <description>Serial Communication Block</description>
       <baseAddress>0x0</baseAddress>
       <addressBlock>

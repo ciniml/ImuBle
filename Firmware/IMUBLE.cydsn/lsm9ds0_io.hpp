@@ -13,7 +13,6 @@ struct LSM9DS0_IOAccessPolicy
 	static void onInitialized()
 	{
 		SPI_LSM9DS0_Start();
-		SPI_LSM9DS0_DisableInt();
 	}
 	static void onGyroDataReady(const ImuOutput& output);
 	static void onMagnetometerDataReady(const ImuOutput& output);
