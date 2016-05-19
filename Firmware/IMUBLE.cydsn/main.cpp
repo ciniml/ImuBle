@@ -181,6 +181,23 @@ static void BleCallback(uint32 eventCode, void *eventParam)
 					CyBle_GattsWriteRsp(param->connHandle);
 				}
 				break;
+				case CYBLE_IMU_SERVICE_UPDATE_INTERVAL_CHAR_HANDLE:
+				{
+					if (param->handleValPair.value.len >= 2)
+					{
+						uint16_t value = *(param->handleValPair.value.val + 0) | (*(param->handleValPair.value.val + 1) << 8);
+						if( 10 <= value && value <= 8000)
+						{
+							Timer_Sampling_WritePeriod(value);
+						}
+						*(param->handleValPair.value.val + 0) = value & 0xff;
+						*(param->handleValPair.value.val + 1) = value >> 8;
+						CyBle_GattsWriteAttributeValue(&param->handleValPair, 0, &param->connHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+					}
+					CyBle_GattsWriteRsp(param->connHandle);
+					
+				}
+				break;
 			}
 		}
 		break;
