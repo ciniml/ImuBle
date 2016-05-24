@@ -93,7 +93,7 @@ private:
 		static constexpr uint_least8_t CTRL_REG0_XM_HPIS1 = (1u << 1);
 		static constexpr uint_least8_t CTRL_REG0_XM_HPIS2 = (1u << 0);
 
-		static constexpr uint_least8_t CTRL_REG1_AODR_BIT = 5;
+		static constexpr uint_least8_t CTRL_REG1_AODR_BIT = 4;
 		static constexpr uint_least8_t CTRL_REG1_AODR_POWER_DOWN = (0x0 << CTRL_REG1_AODR_BIT);
 		static constexpr uint_least8_t CTRL_REG1_AODR_3_125_HZ = (0x1 << CTRL_REG1_AODR_BIT);
 		static constexpr uint_least8_t CTRL_REG1_AODR_6_25_HZ = (0x2 << CTRL_REG1_AODR_BIT);
