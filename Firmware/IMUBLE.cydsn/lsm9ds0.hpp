@@ -315,7 +315,7 @@ public:
 	{
 		IOAccessPolicy::selectMagnetometer();
 		uint8 buffer[1 + 6] = { 0 };
-		buffer[0] = commandByte(true, true, RegMA::OUT_X_L_M);
+		buffer[0] = commandByte(true, true, RegMA::OUT_X_L_A);
 		IOAccessPolicy::exchangeData(buffer, 1 + 6);
 		IOAccessPolicy::unselect();
         
@@ -331,7 +331,7 @@ public:
 	{
 		IOAccessPolicy::selectMagnetometer();
 		uint8 buffer[1 + 6] = { 0 };
-		buffer[0] = commandByte(true, true, RegMA::OUT_X_L_A);
+		buffer[0] = commandByte(true, true, RegMA::OUT_X_L_M);
 		IOAccessPolicy::exchangeData(buffer, 1 + 6);
 		IOAccessPolicy::unselect();
         
