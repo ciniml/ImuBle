@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBle", "ImuBle.csproj", "{FCC2BB87-E9F7-4C5F-A1F3-31F4A6162607}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBleRecorder", "..\ImuBleRecorder\ImuBleRecorder.csproj", "{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCC2BB87-E9F7-4C5F-A1F3-31F4A6162607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCC2BB87-E9F7-4C5F-A1F3-31F4A6162607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCC2BB87-E9F7-4C5F-A1F3-31F4A6162607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCC2BB87-E9F7-4C5F-A1F3-31F4A6162607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

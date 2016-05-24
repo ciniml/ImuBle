@@ -9,3 +9,5 @@ Firmware/*.cywrk.*
 Firmware/IMUBLE.cydsn/IMUBLE_timing.html
 *.bak
 *.kicad_pcb-bak
+obj
+bin
