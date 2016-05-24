@@ -41,5 +41,14 @@
     <ClInclude Include="..\IMUBLE.cydsn\interlocked.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\IMUBLE.cydsn\adxl375.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IMUBLE.cydsn\adxl375_io.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IMUBLE.cydsn\imu.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

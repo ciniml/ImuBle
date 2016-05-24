@@ -44,6 +44,9 @@
     <ClCompile Include="..\IMUBLE.cydsn\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\IMUBLE.cydsn\adxl375.hpp" />
+    <ClInclude Include="..\IMUBLE.cydsn\adxl375_io.hpp" />
+    <ClInclude Include="..\IMUBLE.cydsn\imu.hpp" />
     <ClInclude Include="..\IMUBLE.cydsn\interlocked.hpp" />
     <ClInclude Include="..\IMUBLE.cydsn\interrupt.hpp" />
     <ClInclude Include="..\IMUBLE.cydsn\Lazy.hpp" />
