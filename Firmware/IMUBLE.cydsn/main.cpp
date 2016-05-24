@@ -99,19 +99,32 @@ CY_ISR(SwitchInterruptHandler)
 
 CY_ISR(SamplingInterruptHandler)
 {
+    static uint8_t sampleCount = 0;
+	static ImuOutput prevAccelerometer;
+	static ImuOutput prevWra;
+
 	Timer_Sampling_ClearInterrupt(Timer_Sampling_INTR_MASK_TC);
 	ISR_SampleOutput_ClearPending();
 	
-	SampledOutput next = sampledOutput;
-	next.accelerometer[1] = next.accelerometer[0];
-	next.accelerometer[0] = lastAccelerometerOutput;
-	next.wra[1] = next.wra[0];
-	next.wra[0] = lastWRAOutput;
-	next.gyro = lastGyroOutput;
-	next.magnetometer = lastMagnetometerOutput;
-	sampledOutput.assign(next);
+	if (sampleCount == 1)
+	{
+		SampledOutput next = sampledOutput;
+		next.accelerometer[1] = prevAccelerometer;
+		next.accelerometer[0] = lastAccelerometerOutput;
+		next.wra[1] = prevWra;
+		next.wra[0] = lastWRAOutput;
+		next.gyro = lastGyroOutput;
+		next.magnetometer = lastMagnetometerOutput;
+		sampledOutput.assign(next);
 
-	hasNewData = true;
+		hasNewData = true;
+	}
+	else
+	{
+		prevAccelerometer = lastAccelerometerOutput;
+		prevWra = lastWRAOutput;
+	}
+    sampleCount = (sampleCount + 1) & 1;
 }
 
 static void BleCallback(uint32 eventCode, void *eventParam)
@@ -186,9 +199,9 @@ static void BleCallback(uint32 eventCode, void *eventParam)
 					if (param->handleValPair.value.len >= 2)
 					{
 						uint16_t value = *(param->handleValPair.value.val + 0) | (*(param->handleValPair.value.val + 1) << 8);
-						if( 10 <= value && value <= 8000)
+						if( 5 <= value && value <= 8000)
 						{
-							Timer_Sampling_WritePeriod(value);
+							Timer_Sampling_WritePeriod(value-1);
 						}
 						*(param->handleValPair.value.val + 0) = value & 0xff;
 						*(param->handleValPair.value.val + 1) = value >> 8;
@@ -227,7 +240,7 @@ int main()
 	// Start samplling timer
 	ISR_SampleOutput_StartEx(SamplingInterruptHandler);
 	Timer_Sampling_Init();
-	Timer_Sampling_WritePeriod(500);
+	Timer_Sampling_WritePeriod(500-1);
 	Timer_Sampling_Enable();
 	
     CyGlobalIntEnable; /* Enable global interrupts. */
@@ -305,25 +318,8 @@ int main()
 		// Update LED
 		Pin_LED_Write(ledOutput);
 
-		/* Prevent interrupts while entering system low power modes */
 		uint8 intrStatus = CyEnterCriticalSection();
-
-		/* Get the current state of BLESS block */
-		CYBLE_BLESS_STATE_T blessState = CyBle_GetBleSsState();
-
-		/* If BLESS is in Deep-Sleep mode or the XTAL oscillator is turning on,
-		* then PSoC 4 BLE can enter Deep-Sleep mode (1.3uA current consumption) */
-		if ((blessState == CYBLE_BLESS_STATE_ECO_ON || blessState == CYBLE_BLESS_STATE_DEEPSLEEP) && canEnterToDeepSleep)
-		{
-			CySysPmDeepSleep();
-		}
-		else
-		{
-			/* If BLESS is active, then configure PSoC 4 BLE system in
-			* Sleep mode (~1.6mA current consumption) */
-			CySysPmSleep();
-		}
-
+		CySysPmSleep();
 		CyExitCriticalSection(intrStatus);
     }
 }
