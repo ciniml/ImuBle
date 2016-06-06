@@ -32,8 +32,8 @@ struct LSM9DS0_IOAccessPolicy
 	}
 	static void exchangeData(uint8_t* buffer, size_t length)
 	{
-		SPI_LSM9DS0_SpiUartClearRxBuffer();
 		SPI_LSM9DS0_SpiUartClearTxBuffer();
+		SPI_LSM9DS0_SpiUartClearRxBuffer();
 		SPI_LSM9DS0_SpiUartPutArray(buffer, length);
 		// Wait until last transmission completes.
 		while (SPI_LSM9DS0_SpiUartGetRxBufferSize() < length);

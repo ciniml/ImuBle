@@ -20,6 +20,51 @@
 #include <stdint.h>
 
 
+static char8 nibbleToChar(uint8_t n)
+{
+	return n < 0x0a ? n + '0' : n - 0x0a + 'A';
+}
+
+static char8* writeHex8(char8* p, uint8_t n)
+{
+	*(p++) = nibbleToChar(n >> 4);
+	*(p++) = nibbleToChar(n & 0x0f);
+	return p;
+}
+static char8* writeHex16(char8* p, uint16_t n)
+{
+	p = writeHex8(p, n >> 8);
+	p = writeHex8(p, n & 0xff);
+	return p;
+}
+static char8* writeHex32(char8* p, uint32_t n)
+{
+	p = writeHex16(p, n >> 16);
+	p = writeHex16(p, n & 0xffff);
+	return p;
+}
+static char8 debugBuffer[80];
+
+#ifdef DEBUG
+#define DebugOutput(s)	UART_PutString((s))
+#else
+#define DebugOutput(s)
+#endif
+
+#define DEBUG_GYRO 0
+#define DEBUG_MAG 0
+#define DEBUG_ACC 0
+
+static char8* DebugWriteImuOutput(char8* p, const ImuOutput& output)
+{
+	p = writeHex16(p, output.x);
+	*(p++) = ',';
+	p = writeHex16(p, output.y);
+	*(p++) = ',';
+	p = writeHex16(p, output.z);
+	return p;
+}
+
 static uint8_t* putImuOutputToBuffer(uint8_t* p, const ImuOutput& output)
 {
 	*(p++) = output.x & 0xff;
@@ -33,14 +78,14 @@ static uint8_t* putImuOutputToBuffer(uint8_t* p, const ImuOutput& output)
 
 static InterruptLock interruptLock;
 
-struct InterruptDisableOnReadIntelockPolicy
+struct InterruptDisableOnReadInterlockPolicy
 {
 	static void enterRead() { interruptLock.enter(); }
 	static void leaveRead() { interruptLock.leave(); }
 	static void enterWrite() { }
 	static void leaveWrite() { }
 };
-template<typename TValue> using InterruptInterlocked = InterlockedAccess<TValue, InterruptDisableOnReadIntelockPolicy>;
+template<typename TValue> using InterruptInterlocked = InterlockedAccess<TValue, InterruptDisableOnReadInterlockPolicy>;
 
 static volatile uint8_t ledOutput = 0x00;
 static constexpr uint8_t LED_BLE_CONNECTED = 0x02;
@@ -73,16 +118,43 @@ static InterruptInterlocked<SampledOutput> sampledOutput;
 template<>
 void IMUAccessPolicy::onGyroDataReady(const ImuOutput& output)
 {
+#if DEBUG_GYRO
+	char8 buffer[20];
+	char8* p = buffer;
+	*(p++) = 'G';
+	p = DebugWriteImuOutput(p, output);
+	*(p++) = '\n';
+	*(p++) = 0;
+	DebugOutput(buffer);
+#endif
 	lastGyroOutput = output;
 }
 template<>
 void IMUAccessPolicy::onMagnetometerDataReady(const ImuOutput& output)
 {
+#if DEBUG_MAG
+	char8 buffer[20];
+	char8* p = buffer;
+	*(p++) = 'M';
+	p = DebugWriteImuOutput(p, output);
+	*(p++) = '\n';
+	*(p++) = 0;
+	DebugOutput(buffer);
+#endif
 	lastMagnetometerOutput = output;
 }
 template<>
 void IMUAccessPolicy::onAccelerometerDataReady(const ImuOutput& output)
 {
+#if DEBUG_ACC
+	char8 buffer[20];
+	char8* p = buffer;
+	*(p++) = 'A';
+	p = DebugWriteImuOutput(p, output);
+	*(p++) = '\n';
+	*(p++) = 0;
+	DebugOutput(buffer);
+#endif
 	lastAccelerometerOutput = output;
 }
 
@@ -180,7 +252,7 @@ static void BleCallback(uint32 eventCode, void *eventParam)
 	case CYBLE_EVT_GATTS_WRITE_REQ:
 		// Write request
 		{
-			CYBLE_GATTS_WRITE_REQ_PARAM_T* param = (CYBLE_GATTS_WRITE_REQ_PARAM_T*)eventParam;
+			CYBLE_GATTS_WRITE_REQ_PARAM_T* param = static_cast<CYBLE_GATTS_WRITE_REQ_PARAM_T*>(eventParam);
 			switch (param->handleValPair.attrHandle)
 			{
 				case CYBLE_IMU_SERVICE_CUSTOM_CHARACTERISTIC_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE:
@@ -230,6 +302,10 @@ int main()
 		sampledOutput = zero;
 	}
 
+	// Initialize Debug UART
+	UART_Debug_Start();
+	DebugOutput("IMUBLE Starting\n");
+
 	// Enable reset switch interrupt
     ISR_Switch_StartEx(SwitchInterruptHandler);
     
@@ -263,11 +339,33 @@ int main()
 	bool canEnterToDeepSleep = false;
 	uint8 valueBuffer[40];
 
+	DebugOutput("Initialization completed.\n");
+
     for(;;)
     {
 		CyBle_ProcessEvents();
 		CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-
+#ifdef DEBUG
+		if (hasNewData)
+		{
+			SampledOutput sampled = sampledOutput;
+			char8* p = debugBuffer;
+			*(p++) = 'G';
+			p = DebugWriteImuOutput(p, sampled.gyro);
+			*(p++) = ' ';
+			*(p++) = 'A';
+			p = DebugWriteImuOutput(p, sampled.accelerometer[0]);
+			*(p++) = ' ';
+			*(p++) = 'M';
+			p = DebugWriteImuOutput(p, sampled.magnetometer);
+			*(p++) = ' ';
+			*(p++) = 'W';
+			p = DebugWriteImuOutput(p, sampled.wra[0]);
+			*(p++) = '\n';
+			*(p++) = 0;
+			UART_Debug_PutString(debugBuffer);
+		}
+#endif
 		if (CyBle_GetState() == CYBLE_STATE_CONNECTED)
 		{
 			if (hasNewData)

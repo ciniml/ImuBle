@@ -69,8 +69,8 @@ private:
 	struct RegMA
 	{
 		static constexpr uint_least8_t OUT_TEMP_L_XM = 0x05;
-		static constexpr uint_least8_t STATUS_REG_M = 0x06;
-		static constexpr uint_least8_t OUT_X_L_M = 0x07;
+		static constexpr uint_least8_t STATUS_REG_M = 0x07;
+		static constexpr uint_least8_t OUT_X_L_M = 0x08;
 		static constexpr uint_least8_t WHO_AM_I_XM = 0x0f;
 		static constexpr uint_least8_t INT_CTRL_REG_M = 0x12;
 		static constexpr uint_least8_t INT_SRC_REG_M = 0x12;
@@ -263,10 +263,10 @@ public:
 		IOAccessPolicy::disableGyroDataReadyInt();
 
 		writeGyroRegister(REG_CTRL_REG1_G, (3 << CTRL_REG1_G_DR_BIT) | (3 << CTRL_REG1_G_BW_BIT) | CTRL_REG1_G_PD | CTRL_REG1_G_ZEN | CTRL_REG1_G_YEN | CTRL_REG1_G_XEN);
-		writeGyroRegister(REG_CTRL_REG2_G, (0 << CTRL_REG2_G_HPM_BIT) | (0 << CTRL_REG2_G_HPCF_BIT));
+		writeGyroRegister(REG_CTRL_REG2_G, (0 << CTRL_REG2_G_HPM_BIT) | (6 << CTRL_REG2_G_HPCF_BIT));	// HPF cutoff = 0.9[Hz]
 		writeGyroRegister(REG_CTRL_REG3_G, CTRL_REG3_G_I2_DRDY);
-		writeGyroRegister(REG_CTRL_REG4_G, (3 << CTRL_REG4_G_FS_BIT));
-		writeGyroRegister(REG_CTRL_REG5_G, CTRL_REG5_G_OUT_SEL_HPF);
+		writeGyroRegister(REG_CTRL_REG4_G, (3 << CTRL_REG4_G_FS_BIT) | (0 << CTRL_REG4_G_ST_BIT));
+		writeGyroRegister(REG_CTRL_REG5_G, CTRL_REG5_G_OUT_SEL_LPF1);
 		writeGyroRegister(REG_FIFO_CTRL_REG_G, FIFO_CTRL_REG_G_FM_BYPASS);	// Disable FIFO.
 
 		IOAccessPolicy::enableGyroDataReadyInt();
