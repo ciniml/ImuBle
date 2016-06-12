@@ -1,0 +1,38 @@
+﻿<Window x:Class="ImuBle.Ui.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:ImuBle.Ui.ViewModel"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0">Device:</Label>
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice.Value}" IsEditable="False"/>
+
+            <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsRecording.Value}" IsEnabled="{Binding CanRecord.Value}" Content="Record"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OutputFilePath.Value, Mode=TwoWay}"/>
+        </Grid>
+        
+        <oxy:PlotView Grid.Row="1" Model="{Binding PlotModel.Value}" x:Name="PlotView"/>
+    </Grid>
+</Window>
