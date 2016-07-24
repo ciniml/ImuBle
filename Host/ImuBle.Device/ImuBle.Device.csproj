@@ -3,20 +3,20 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E160DBFC-319D-4601-B00E-5EC54A6D08FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ImuBleRecorder</RootNamespace>
-    <AssemblyName>ImuBleRecorder</AssemblyName>
+    <RootNamespace>ImuBle.Device</RootNamespace>
+    <AssemblyName>ImuBle.Device</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +26,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -50,17 +49,11 @@
     <Reference Include="Windows" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ImuBleDevice.cs" />
+    <Compile Include="ImuBleDeviceInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ImuBle.Device\ImuBle.Device.csproj">
-      <Project>{e160dbfc-319d-4601-b00e-5ec54a6d08ff}</Project>
-      <Name>ImuBle.Device</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ImuBle\ImuBle.csproj">
       <Project>{fcc2bb87-e9f7-4c5f-a1f3-31f4a6162607}</Project>
       <Name>ImuBle</Name>

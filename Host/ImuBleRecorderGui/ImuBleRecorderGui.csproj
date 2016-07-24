@@ -102,12 +102,22 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBlueSt, Version=0.1.0.9452, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\ImuBle\packages\WindowsBlueSt.0.1.0-pre2\lib\net45\WindowsBlueSt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBlueSt.WeSU, Version=0.1.1.7872, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\ImuBle\packages\WindowsBlueSt.WeSU.0.1.1-pre\lib\net45\WindowsBlueSt.WeSU.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ImuDeviceFactory.cs" />
+    <Compile Include="Model\LogEventSource.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -158,9 +168,17 @@
     <Analyzer Include="..\ImuBle\packages\NotifyPropertyChangedGenerator.1.1.1.0\analyzers\dotnet\cs\NotifyPropertyChangedGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImuBle.Device\ImuBle.Device.csproj">
+      <Project>{e160dbfc-319d-4601-b00e-5ec54a6d08ff}</Project>
+      <Name>ImuBle.Device</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImuBle\ImuBle.csproj">
       <Project>{fcc2bb87-e9f7-4c5f-a1f3-31f4a6162607}</Project>
       <Name>ImuBle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImuBle\ImuBle.WeSU\ImuBle.WeSU.csproj">
+      <Project>{106f5b78-aed9-4475-a6dd-f62e0ec19efe}</Project>
+      <Name>ImuBle.WeSU</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,19 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ImuBle.Ui.ViewModel"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:messaging="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:view="clr-namespace:ImuBle.Ui.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="ImuBle Recorder" MinWidth="640" MinHeight="480">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="2,2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="2,2"/>
+            <Setter Property="Padding" Value="2,2"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="2,2"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2,1"/>
+        </Style>
+        <Style x:Key="BrowseButtonStyle"  TargetType="Button">
+            <Setter Property="Padding" Value="4,0"/>
+            <Setter Property="Margin" Value="2,1"/>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <messaging:DataContextDisposeAction/>
+        </i:EventTrigger>
+        <messaging:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="{x:Static viewModel:MainWindowViewModel.GenericErrorMessageKey}">
+            <messaging:InformationDialogInteractionMessageAction/>
+        </messaging:InteractionMessageTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -27,12 +64,59 @@
             </Grid.ColumnDefinitions>
             
             <Label Grid.Row="0" Grid.Column="0">Device:</Label>
-            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice.Value}" IsEditable="False"/>
+            <DockPanel Grid.Row="0" Grid.Column="1">
+                <Button DockPanel.Dock="Right" Command="{Binding ResetDeviceCommand}">Reset</Button>
+                <ComboBox ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice.Value}" IsEditable="False" IsEnabled="{Binding CanChangeDevice.Value}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </DockPanel>
 
-            <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsRecording.Value}" IsEnabled="{Binding CanRecord.Value}" Content="Record"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OutputFilePath.Value, Mode=TwoWay}"/>
+            <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding AutoUpdatingPlot.Value}">Update Plot</CheckBox>
+            
+            <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding IsRecording.Value}" IsEnabled="{Binding CanRecord.Value}" Content="Record"/>
+            <DockPanel Grid.Row="2" Grid.Column="1">
+                <Button DockPanel.Dock="Right" Style="{StaticResource BrowseButtonStyle}" Content="...">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <messaging:SaveFileDialogInteractionMessageAction>
+                                <messaging:DirectInteractionMessage CallbackCommand="{Binding ChangeOutputFilePathCommand}">
+                                    <messaging:SavingFileSelectionMessage FileName="{Binding OutputFilePath.Value}" Filter="CSV files (*.csv)|*.csv|All files|*.*" OverwritePrompt="True"/>
+                                </messaging:DirectInteractionMessage>
+                            </messaging:SaveFileDialogInteractionMessageAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <TextBox Text="{Binding OutputFilePath.Value, Mode=TwoWay}" IsEnabled="{Binding CanRecord.Value}"/>
+            </DockPanel>
+            
         </Grid>
         
         <oxy:PlotView Grid.Row="1" Model="{Binding PlotModel.Value}" x:Name="PlotView"/>
+        
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsConnecting.Value}" Value="True">
+                                    <Setter Property="Text" Value="Connecting..."/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsRecording.Value}" Value="True">
+                                    <Setter Property="Text" Value="Recording..."/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsConnected.Value}" Value="True">
+                                    <Setter Property="Text" Value="Connected"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

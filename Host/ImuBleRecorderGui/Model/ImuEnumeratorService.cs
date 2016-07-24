@@ -9,6 +9,8 @@ using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Text;
 using System.Threading.Tasks;
+using ImuBle.Device;
+using ImuBle.WeSU;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Reactive.Bindings.Notifiers;
@@ -17,13 +19,13 @@ namespace ImuBle.Ui.Model
 {
     public class ImuEnumeratorService : IDisposable
     {
-        private readonly ReactiveCollection<ImuBleDeviceInformation> devices = new ReactiveCollection<ImuBleDeviceInformation>();
+        private readonly ReactiveCollection<IImuDeviceId> devices = new ReactiveCollection<IImuDeviceId>();
         private readonly Subject<Unit> enumerateSubject = new Subject<Unit>();
         private readonly CompositeDisposable disposables = new CompositeDisposable();
 
         public ReadOnlyReactiveProperty<bool> IsEnumerating { get; }
 
-        public ReadOnlyReactiveCollection<ImuBleDeviceInformation> Devices { get; }
+        public ReadOnlyReactiveCollection<IImuDeviceId> Devices { get; }
 
         public ImuEnumeratorService()
         {
@@ -32,13 +34,18 @@ namespace ImuBle.Ui.Model
             var isEnumerating = new ReactiveProperty<bool>();
             this.IsEnumerating = isEnumerating.ToReadOnlyReactiveProperty();
 
+            var imuBleDevicesObservable = Observable.FromAsync(cancellationToken => ImuBleDevice.FindAllDevices(cancellationToken)).Select(devices => devices.Cast<IImuDeviceId>());
+            var wesuDeviceObservable = Observable.FromAsync(cancellationToken => WeSUDevice.FindAllDeviceAsync(cancellationToken)).Select(devices => devices.Cast<IImuDeviceId>());
             this.enumerateSubject
                 .Where(_ => !isEnumerating.Value)
-                .Do(_ => isEnumerating.Value = true)
-                .SelectMany(_ => Observable.FromAsync(cancellationToken => ImuBleDevice.FindAllDevices(cancellationToken)))
+                .Do(_ =>
+                {
+                    isEnumerating.Value = true;
+                    this.devices.Clear();
+                })
+                .SelectMany(_ => imuBleDevicesObservable.Merge(wesuDeviceObservable))
                 .Do(devices =>
                 {
-                    this.devices.Clear();
                     foreach (var device in devices)
                     {
                         this.devices.Add(device);

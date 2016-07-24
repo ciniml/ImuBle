@@ -48,8 +48,18 @@
     <Reference Include="Windows" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImuBle.cs" />
+    <Compile Include="IImuDevice.cs" />
+    <Compile Include="BleUtil.cs" />
+    <Compile Include="ImuData.cs" />
+    <Compile Include="ImuDataReceivedEventArgs.cs" />
+    <Compile Include="ImuVector3.cs" />
+    <Compile Include="IImuDeviceId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ImuBle.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

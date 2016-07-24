@@ -9,7 +9,11 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ImuBle.Device;
 using ImuBle.Ui.Model;
+using Livet.Behaviors.Messaging.IO;
+using Livet.Messaging;
+using Livet.Messaging.IO;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -21,30 +25,47 @@ namespace ImuBle.Ui.ViewModel
 {
     public class MainWindowViewModel : Livet.ViewModel
     {
+        public static readonly string GenericErrorMessageKey = nameof(GenericErrorMessageKey);
+
         private readonly ImuEnumeratorService imuEnumerator;
         private readonly RecordingService recording;
-        public ReadOnlyReactiveCollection<ImuBleDeviceInformation> Devices { get; }
-        public ReactiveProperty<ImuBleDeviceInformation> SelectedDevice { get; }
+        public ReadOnlyReactiveCollection<IImuDeviceId> Devices { get; }
+        public ReactiveProperty<IImuDeviceId> SelectedDevice { get; }
+        public ReactiveCommand ResetDeviceCommand { get; }
 
-        public ReadOnlyReactiveProperty<bool> IsConnecting => this.recording.IsConnecting;
-        public ReadOnlyReactiveProperty<bool> IsConnected => this.recording.IsConnected;
-        public ReactiveProperty<bool> IsRecording => this.recording.IsRecording;
+        public ReadOnlyReactiveProperty<bool> IsConnecting { get; }
+        public ReadOnlyReactiveProperty<bool> IsConnected { get; }
+        public ReactiveProperty<bool> IsRecording { get; }
         public ReadOnlyReactiveProperty<bool> CanRecord { get; }
+        public ReadOnlyReactiveProperty<bool> CanChangeDevice { get; }
 
         [Required]
         public ReactiveProperty<string> OutputFilePath { get; }
         
         public ReadOnlyReactiveProperty<OxyPlot.PlotModel> PlotModel { get; }
+        public ReactiveProperty<bool> AutoUpdatingPlot { get; }
+        public ReactiveCommand<SavingFileSelectionMessage> ChangeOutputFilePathCommand { get; }
 
         public MainWindowViewModel()
         {
             this.imuEnumerator = ((App) Application.Current).ImuEnumerator;
             this.recording = ((App) Application.Current).Recording;
 
+            this.IsConnecting = this.recording.IsConnecting.ObserveOnUIDispatcher().Do(value => LogEventSource.Log.Verbose($"IsConnecting={value}")).ToReadOnlyReactiveProperty().AddTo(this.CompositeDisposable);
+            this.IsConnected = this.recording.IsConnected.ObserveOnUIDispatcher().Do(value => LogEventSource.Log.Verbose($"IsConnected={value}")).ToReadOnlyReactiveProperty().AddTo(this.CompositeDisposable);
+            this.IsRecording = this.recording.IsRecording.ToReactivePropertyAsSynchronized(self => self.Value).AddTo(this.CompositeDisposable);
+
+            this.CanChangeDevice = this.IsConnecting.Select(value => !value).ToReadOnlyReactiveProperty().AddTo(this.CompositeDisposable);
+
             this.OutputFilePath = this.recording.OutputFilePath
                 .ToReactivePropertyAsSynchronized(self => self.Value)
                 .AddTo(this.CompositeDisposable);
             this.OutputFilePath.SetValidateAttribute(() => this.OutputFilePath);
+            this.ChangeOutputFilePathCommand = new ReactiveCommand<SavingFileSelectionMessage>().AddTo(this.CompositeDisposable);
+            this.ChangeOutputFilePathCommand
+                .Where(message => message.Response != null && message.Response.Any(path => !string.IsNullOrEmpty(path)))
+                .Subscribe(message => this.OutputFilePath.Value = message.Response.First(path => !string.IsNullOrEmpty(path)))
+                .AddTo(this.CompositeDisposable);
 
             this.CanRecord = Observable.CombineLatest(
                 this.OutputFilePath.ObserveHasErrors,
@@ -54,7 +75,7 @@ namespace ImuBle.Ui.ViewModel
                 .AddTo(this.CompositeDisposable);
 
             this.Devices = this.imuEnumerator.Devices;
-            this.SelectedDevice = new ReactiveProperty<ImuBleDeviceInformation>().AddTo(this.CompositeDisposable);
+            this.SelectedDevice = new ReactiveProperty<IImuDeviceId>().AddTo(this.CompositeDisposable);
             this.SelectedDevice
                 .Do(deviceInformation =>
                 {
@@ -64,13 +85,20 @@ namespace ImuBle.Ui.ViewModel
                 .Subscribe()
                 .AddTo(this.CompositeDisposable);
 
+            this.ResetDeviceCommand = this.CanChangeDevice.ToReactiveCommand().AddTo(this.CompositeDisposable);
+            this.ResetDeviceCommand
+                .Subscribe(_ => this.recording.ResetDevice())
+                .AddTo(this.CompositeDisposable);
+
             recording.ErrorOccured
                 .Subscribe(errorMessage =>
                 {
-
+                    var message = new InformationMessage(errorMessage, "Error", MessageBoxImage.Error, GenericErrorMessageKey);
+                    this.Messenger.Raise(message);
                 })
                 .AddTo(this.CompositeDisposable);
             
+
             var dataSeries = new []
             {
                 CreateSeries("Acceleration(X)", "AccelerationAxis", item => item.Acceleration.X),
@@ -129,24 +157,9 @@ namespace ImuBle.Ui.ViewModel
             
             this.PlotModel = Observable.Return(plotModel).ToReadOnlyReactiveProperty().AddTo(this.CompositeDisposable);
 
-            var isPlotUpdating = false;
-
-            Observable.FromEventPattern<EventHandler, EventArgs>(
-                handler => (sender, args) => handler(sender, args),
-                handler => plotModel.Updating += handler,
-                handler => plotModel.Updating -= handler)
-                .Subscribe(_ => isPlotUpdating = true)
-                .AddTo(this.CompositeDisposable);
-
-            Observable.FromEventPattern<EventHandler, EventArgs>(
-                handler => (sender, args) => handler(sender, args),
-                handler => plotModel.Updated += handler,
-                handler => plotModel.Updated -= handler)
-                .Subscribe(_ => isPlotUpdating = false)
-                .AddTo(this.CompositeDisposable);
-
+            this.AutoUpdatingPlot = new ReactiveProperty<bool>(true).AddTo(this.CompositeDisposable);
             this.recording.History
-                .Where(_ => !isPlotUpdating)
+                .Where(_ => this.AutoUpdatingPlot.Value)
                 .Subscribe(history =>
                 {
                     foreach (var series in dataSeries)

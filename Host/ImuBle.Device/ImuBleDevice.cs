@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
@@ -10,75 +8,9 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Devices.Enumeration;
 using Windows.Storage.Streams;
 
-namespace ImuBle
+namespace ImuBle.Device
 {
-    public static class BleUtil
-    {
-        public static readonly string BluetoothGattDeviceServiceInterfaceClassGuid = "{6E3BB679-4372-40C8-9EAA-4509DF260CD8}";
-        private const string ContainerIdProperty = "System.Devices.ContainerId";
-        private const string InterfaceClassGuidProperty = "System.Devices.InterfaceClassGuid";
-        private const string ServiceGuidProperty = "System.DeviceInterface.Bluetooth.ServiceGuid";
-        private const string InterfaceEnabledProperty = "System.Devices.InterfaceEnabled";
-        private const string AqsBooleanFalse = "System.StructuredQueryType.Boolean#False";
-        private const string AqsBooleanTrue = "System.StructuredQueryType.Boolean#True";
-
-        public static string GetDeviceSelecorEndsWithGuid(string guidPattern)
-        {
-            return $"{InterfaceClassGuidProperty}:={BluetoothGattDeviceServiceInterfaceClassGuid} AND {InterfaceEnabledProperty}:={AqsBooleanTrue} AND {ServiceGuidProperty}:~>\"{guidPattern}}}\"";
-        }
-
-        public static string AppendContainerIdCriterion(string aqsString, Guid containerId)
-        {
-            return $"{aqsString} AND {ContainerIdProperty}:=\"{{{containerId}}}\"";
-        }
-
-        public static async Task<IEnumerable<IGrouping<Guid, DeviceInformation>>> FindAllDeviceServicesAsync(string aqsFilter, CancellationToken cancellationToken)
-        {
-            return (await DeviceInformation.FindAllAsync(aqsFilter, new[] { ContainerIdProperty }).AsTask(cancellationToken)).GroupByDevice();
-        }
-
-        public static IEnumerable<IGrouping<Guid, DeviceInformation>> GroupByDevice(this IEnumerable<DeviceInformation> devices)
-        {
-            return devices.GroupBy(device => (Guid)device.Properties[ContainerIdProperty]);
-        }
-    }
-    
-    public struct ImuVector3
-    {
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Z { get; set; }
-    }
-
-    public class ImuDataReceivedEventArgs : EventArgs
-    {
-        public ImuVector3 Acceleration { get; }
-        public ImuVector3 AccelerationWide { get; }
-        public ImuVector3 Rotation { get; }
-        public ImuVector3 Magnetism { get; }
-        public DateTimeOffset Timestamp { get; }
-        
-        public ImuDataReceivedEventArgs(DateTimeOffset timestamp, ImuVector3 acceleration, ImuVector3 accelerationWide, ImuVector3 rotation, ImuVector3 magnetism)
-        {
-            this.Timestamp = timestamp;
-            this.Acceleration = acceleration;
-            this.AccelerationWide = accelerationWide;
-            this.Rotation = rotation;
-            this.Magnetism = magnetism;
-        }
-    }
-    
-    public class ImuBleDeviceInformation
-    {
-        public Guid Id { get; }
-
-        internal ImuBleDeviceInformation(Guid id)
-        {
-            this.Id = id;
-        }
-    }
-    
-    public class ImuBleDevice
+    public class ImuBleDevice : IImuDevice
     {
         private static readonly Guid ImuServiceGuid = Guid.Parse("00010000-1000-2000-4012-3456789ab000");
         private static readonly Guid AggregatedCharacteristicGuid = Guid.Parse("00010000-1000-2000-4012-3456789ab001");
@@ -136,11 +68,11 @@ namespace ImuBle
             var values = ReadAggregateValues(e.CharacteristicValue, e.Timestamp);
             foreach (var value in values)
             {
-                this.DataReceived?.Invoke(this, value);
+                this.DataReceived?.Invoke(this, new ImuDataReceivedEventArgs(value));
             }
         }
 
-        private static ImuDataReceivedEventArgs[] ReadAggregateValues(IBuffer buffer, DateTimeOffset timestamp)
+        private static ImuData[] ReadAggregateValues(IBuffer buffer, DateTimeOffset timestamp)
         {
             const float accelerationSensitivity = 0.732f;
             const float accelerationWideSensitivity = 49f;
@@ -160,31 +92,31 @@ namespace ImuBle
 
                 return new[]
                 {
-                    new ImuDataReceivedEventArgs(timestamp, acceleration1, accelerationWide1, rotation, magnetism),
-                    new ImuDataReceivedEventArgs(timestamp, acceleration0, accelerationWide0, rotation, magnetism),
+                    new ImuData(timestamp, acceleration1, accelerationWide1, rotation, magnetism),
+                    new ImuData(timestamp, acceleration0, accelerationWide0, rotation, magnetism),
                 };
             }
             else
             {
-                return new ImuDataReceivedEventArgs[0];
+                return new ImuData[0];
             }
         }
 
 
-        public async Task<ImuDataReceivedEventArgs[]> ReadAggregateValues(CancellationToken cancellationToken)
+        public async Task<ImuData[]> ReadAggregateValuesAsync(CancellationToken cancellationToken)
         {
             var result = await this.aggergatedCharacteristic.ReadValueAsync(BluetoothCacheMode.Uncached).AsTask(cancellationToken);
             if( result.Status == GattCommunicationStatus.Unreachable ) throw new InvalidOperationException("Failed to read aggregate values.");
             return ReadAggregateValues(result.Value, DateTimeOffset.Now);
         }
-        public async Task SetInterval(int intervalMilliseconds, CancellationToken cancellationToken)
+        public async Task SetIntervalAsync(int intervalMilliseconds, CancellationToken cancellationToken)
         {
             var data = BitConverter.GetBytes((ushort)intervalMilliseconds);
             var buffer = data.AsBuffer();
             await this.updateIntervalCharacteristic.WriteValueAsync(buffer).AsTask(cancellationToken);
         }
 
-        public async Task DisableNotifications(CancellationToken cancellationToken)
+        public async Task DisableNotificationsAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -197,7 +129,7 @@ namespace ImuBle
             }
         }
 
-        public async Task EnableNotifications(CancellationToken cancellationToken)
+        public async Task EnableNotificationsAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -207,16 +139,16 @@ namespace ImuBle
                     var result = await this.aggergatedCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(newCccd).AsTask(cancellationToken);
                     if (result == GattCommunicationStatus.Unreachable) throw new InvalidOperationException("Failed to set CCCD");
 
-                    // Confirm the CCCD value.
-                    {
-                        var cccd = await this.aggergatedCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync().AsTask(cancellationToken);
-                        if (cccd.ClientCharacteristicConfigurationDescriptor != GattClientCharacteristicConfigurationDescriptorValue.Notify)
-                        {
-                            continue;
-                        }
-                    }
+                    //// Confirm the CCCD value.
+                    //{
+                    //    var cccd = await this.aggergatedCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync().AsTask(cancellationToken);
+                    //    if (cccd.ClientCharacteristicConfigurationDescriptor != GattClientCharacteristicConfigurationDescriptorValue.Notify)
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
                     return;
-                }
+                }   
                 catch (Exception e) when ((uint) e.HResult == 0x8007001fu)
                 {
                 }

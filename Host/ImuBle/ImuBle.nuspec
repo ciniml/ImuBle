@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ImuBle</id>
+    <version>0.1.0-pre</version>
+    <title>BLE connected IMU connection library</title>
+    <authors>Kenta IDA</authors>
+    <owners>Kenta IDA</owners>
+    <description>BLE connected IMU connection library</description>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  
+  <files>
+    <file src="bin\Release\ImuBle.dll" target="lib\net45" />
+  </files>
+</package>

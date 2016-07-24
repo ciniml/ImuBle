@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBle", "ImuBle.csproj", "{FCC2BB87-E9F7-4C5F-A1F3-31F4A6162607}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBleRecorder", "..\ImuBleRecorder\ImuBleRecorder.csproj", "{91C66FC9-EA5A-4C05-9995-9B81D4382ED7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBleRecorderGui", "..\ImuBleRecorderGui\ImuBleRecorderGui.csproj", "{5BA46304-ADC1-48B5-B6B9-73CC70D225E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBle.Device", "..\ImuBle.Device\ImuBle.Device.csproj", "{E160DBFC-319D-4601-B00E-5EC54A6D08FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImuBle.WeSU", "ImuBle.WeSU\ImuBle.WeSU.csproj", "{106F5B78-AED9-4475-A6DD-F62E0EC19EFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{5BA46304-ADC1-48B5-B6B9-73CC70D225E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BA46304-ADC1-48B5-B6B9-73CC70D225E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BA46304-ADC1-48B5-B6B9-73CC70D225E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E160DBFC-319D-4601-B00E-5EC54A6D08FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E160DBFC-319D-4601-B00E-5EC54A6D08FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E160DBFC-319D-4601-B00E-5EC54A6D08FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E160DBFC-319D-4601-B00E-5EC54A6D08FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{106F5B78-AED9-4475-A6DD-F62E0EC19EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106F5B78-AED9-4475-A6DD-F62E0EC19EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106F5B78-AED9-4475-A6DD-F62E0EC19EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106F5B78-AED9-4475-A6DD-F62E0EC19EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
